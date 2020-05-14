@@ -37,3 +37,27 @@ services:
       - ~/docker/zigbee2mqtt/data:/app/data
     devices:
       - /dev/ttyACM0:/dev/ttyACM0
+###################################################################################################
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    ports:
+      - 8086:8086
+    volumes:
+      - ~/docker/influxdb:/var/lib/influxdb
+    restart: always
+    environment:
+     - INFLUXDB_DB=db0
+     - INFLUXDB_ADMIN_USER="admin"
+     - INFLUXDB_ADMIN_PASSWORD="password"
+###################################################################################################
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    network_mode: host
+    ports:
+      - 3000:3000
+    volumes:
+      - ~/docker/grafana:/var/lib/grafana
+    restart: always
+    user: root:root
