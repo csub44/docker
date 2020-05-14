@@ -1,0 +1,39 @@
+version: '3.6'
+services:
+###################################################################################################
+  nodered:
+    image: nodered/node-red
+    container_name: nodered
+    restart: always
+    volumes:
+      - ~/docker/nodered:/data
+    network_mode: host
+    ports:
+      - 60000:60000
+      - 1880:1880
+      - 80:80
+    privileged: true
+    user: root:root
+    environment:
+      - TZ=Europe/Berlin
+###################################################################################################
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    restart: always
+    network_mode: host
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - ~/docker/mosquitto:/mosquitto/
+###################################################################################################
+  zigbee2mqtt:
+    image: koenkk/zigbee2mqtt
+    container_name: zigbee2mqtt
+    restart: always
+    network_mode: host
+    volumes:
+      - ~/docker/zigbee2mqtt/data:/app/data
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0

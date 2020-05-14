@@ -1,0 +1,12 @@
+homeassistant: false
+permit_join: true
+mqtt:
+  base_topic: zigbee2mqtt
+  server: 'mqtt://127.0.0.1'
+serial:
+  port: /dev/ttyACM0
+advanced:
+  pan_id: 6752
+  channel: 12
+experimental:
+  output: attribute_and_json
